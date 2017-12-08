@@ -32,8 +32,6 @@ list(APPEND BASE_INTERNAL_HEADERS
   "internal/atomic_hook.h"
   "internal/cycleclock.h"
   "internal/endian.h"
-  "internal/exception_testing.h"
-  "internal/exception_safety_testing.h"
   "internal/identity.h"
   "internal/invoke.h"
   "internal/log_severity.h"
@@ -57,11 +55,17 @@ list(APPEND BASE_INTERNAL_HEADERS
   "internal/unscaledcycleclock.h"
 )
 
+if (BUILD_TESTING)
+  list(APPEND BASE_INTERNAL_HEADERS
+    "internal/exception_testing.h"
+    "internal/exception_safety_testing.h"
+  )
+endif()
+
 
 # absl_base main library
 list(APPEND BASE_SRC
   "internal/cycleclock.cc"
-  "internal/exception_safety_testing.cc"
   "internal/raw_logging.cc"
   "internal/spinlock.cc"
   "internal/sysinfo.cc"
@@ -72,6 +76,13 @@ list(APPEND BASE_SRC
   ${BASE_PUBLIC_HEADERS}
   ${BASE_INTERNAL_HEADERS}
 )
+
+if (BUILD_TESTING)
+  list(APPEND BASE_SRC
+  "internal/exception_safety_testing.cc"
+  )
+endif()
+
 
 absl_library(
   TARGET
