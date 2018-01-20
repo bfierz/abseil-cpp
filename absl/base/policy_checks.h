@@ -46,7 +46,7 @@
 
 // We support MSVC++ 14.0 update 2 and later.
 // This minimum will go up.
-#if defined(_MSC_FULL_VER) && _MSC_FULL_VER < 190023918
+#if defined(_MSC_FULL_VER) && !defined(__clang__) && _MSC_FULL_VER < 190023918
 #error "This package requires Visual Studio 2015 Update 2 or higher"
 #endif
 
